@@ -4,7 +4,7 @@ A basic bot that identifies spam bots on Reddit with 90% certainty.
 # Heuristics #
 Heuristics | Weight 
 --- | --- 
-Account is relatively new | 20
+Account is relatively new | 10 * age
 Account has no verified email|  50
 Reddit employee | -30
 Uses generic name | 40
