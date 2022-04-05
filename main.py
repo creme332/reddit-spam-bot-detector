@@ -10,12 +10,12 @@ reddit = praw.Reddit(
     user_agent="",
     username = "",
     password = "",
-    check_for_async=False
 )
 
-#user = reddit.redditor('snoocockbot')
-#user = reddit.redditor('snoocockbot')
-user = reddit.redditor('carbonatedcoochie2')
+#user = reddit.redditor('snoocockbot') #an actual bot
+user = reddit.redditor('Most-Boring-Bot') # an actual bot
+
+#user = reddit.redditor('carbonatedcoochie2') #a  real person
 
 def AccountAge() :
     birthday = datetime.utcfromtimestamp(user.created_utc)
@@ -44,24 +44,20 @@ def AccountAge() :
 
 def HasVerifiedEmail():
      if(user.has_verified_email):
-         return "Account has no verified email"
-     return "Account has a verified email"
+         return 50
+     return -10
  
-def CommentSimilarity(NumberOfPostsAnalysed):
-    count = {} # map declaration
-    uniquecomments=0
+def AnalysePostsSimilarity(PostLimit):
+    UniquePosts = set() 
+    UniqueTitle =  set()
+    postsAnalysed_count=0 # count number of posts when user has posted < PostLimit
 
-    for comment in user.submissions.new(limit=NumberOfPostsAnalysed):
-        print(comment.created_utc)
-        if comment in count.keys(): #if element is present in map
-            count[comment]+=1
-        else : # element not present in map
-            count[comment] = 1 # add a new element to a map 
-            
-    for c in count:
-        uniquecomments+=1
-    percentage =  100*(NumberOfPostsAnalysed - uniquecomments)/NumberOfPostsAnalysed
-    return str(percentage)+ "% of its " + str(NumberOfPostsAnalysed)+ " latest posts were identical"
+    for post in user.submissions.new(limit=PostLimit):
+        UniquePosts.add(post.selftext)
+        postsAnalysed_count+=1
+        UniqueTitle.add(post.title)
+        print(post.title)
+    return 100*(postsAnalysed_count- len(UniquePosts))/postsAnalysed_count + 100*(postsAnalysed_count- len(UniqueTitle))/postsAnalysed_count
 
 def TimeDifference(t1, t2):
     #t1 and #t2 are in utc format
@@ -75,24 +71,32 @@ def TimeDifference(t1, t2):
 def PostingInterval(NumberOfPostsAnalysed):
     IsFirstComment=1
     PreviousTime = 0 # previous post's date
-    interval= []
+    days_interval= []
+    time_interval=[]
+    sum_of_intervals= 0
     for post in user.submissions.new(limit=NumberOfPostsAnalysed):
         if IsFirstComment :
             IsFirstComment=0
             PreviousTime = post.created_utc
         else :
-            interval.append(TimeDifference(PreviousTime, post.created_utc))
+            current_interval = TimeDifference(PreviousTime, post.created_utc)
+            sum_of_intervals += current_interval
+            days_interval.append(current_interval)
             PreviousTime = post.created_utc
-    
-    print(interval)
+    mean_interval = sum_of_intervals / len(days_interval)
+    print(days_interval)
+    print(mean_interval)
+    variance = 0
+    for i in range(0, len(days_interval)):
+        variance += (days_interval[i]-mean_interval)**2
+    variance /= (len(days_interval)-1)
+    print (variance)
 def CommentInterval():
     return 0
 def FinalReport():
-    NumberOfPostsAnalysed=5
-    print(AccountAge())  
-    print(CommentSimilarity(NumberOfPostsAnalysed))
-    print(HasVerifiedEmail())
-    print(user.icon_img)
-
+    PostLimit=5
+    totalscore = HasVerifiedEmail() + AccountAge() +AnalysePostsSimilarity(PostLimit)
+    return totalscore
 
 PostingInterval(5)
+#print(AnalysePostsSimilarity(100))
