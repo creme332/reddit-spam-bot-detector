@@ -1,8 +1,7 @@
 # Bot detection algorithm
-An **extremely** basic bot that identifies bots on Reddit.
+An **extremely** basic bot that identifies bots or spam bots on Reddit.
 
-This code was written for fun and was tested on a small sample. 
-
+This code was written for fun and was tested on a small sample of accounts.
 
 
 # How to use #
