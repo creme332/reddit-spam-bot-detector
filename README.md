@@ -21,5 +21,6 @@ Variance between posts/comments content
 
 # Future work #
 - [ ] Heuristic : Check for URL shorteners in post and whether comments link to the same sites 
+- [ ] Use statistics to find threshold for totalscore
 - [ ] Increase testing sample size
 - [ ] Improve algorithm for checking similarity between posts/comments
