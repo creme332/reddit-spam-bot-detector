@@ -1,18 +1,23 @@
-# SpamBotDetection
-A basic bot that identifies spam bots on Reddit with 90% certainty.
+# Bot detection algorithm
+An **extremely** basic bot that identifies bots on Reddit.
+
+This code was written for fun and was tested on a small sample. 
+
+
+
+# How to use #
 
 # Heuristics #
-Heuristics | Weight 
---- | --- 
-Account is relatively new | 10 * age
-Account has no verified email|  50
-Reddit employee | -30
-Uses generic name | 40
-Time interval between posts/comments | variance * 10
-Number of identical posts/comments | % of identical comments
-Number of downvotes in comments | 
-Posts/comments contain similar phrasing | 
-Posts/comments links to the same sites | 50
-Posts contains URL shorteners | 30
+Heuristics 
+--- | 
+Account age
+Account karma
+Verified account
+Reddit employee 
+Time interval between posts/comments 
+Similarity between posts/comments 
 
-The higher the total weight, the more likely the redditor is a bot.
+# Future work #
+- [ ] Check for URL shorteners in post and whether comments link to the same sites 
+- [ ] Increase testing sample size
+- [ ] Improve algorithm for checking similarity between posts/comments
