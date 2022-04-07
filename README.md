@@ -1,7 +1,7 @@
 # Bot detection algorithm
-An **extremely** basic bot that identifies bots or spam bots on Reddit with 60% accuracy.
+An **extremely** basic bot that identifies bots or spam bots on Reddit with 60% accuracy on a small sample.
 
-This code was written for fun to experiment with Python and was tested on a **small** sample.
+This code was written for fun to experiment with Python.
 
 
 # How to use #
