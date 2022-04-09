@@ -4,6 +4,8 @@ import praw
 reddit = praw.Reddit(
 )
 
+# Code written to collect Reddit usernames of bots and real people
+
 def check_if_user_exists(name):
     try:
         reddit.redditor(name).created
@@ -14,7 +16,7 @@ def check_if_user_exists(name):
     
 def ExtractNames():
     BotUsernames = set()
-    with open("RedditBotNames.txt") as file: #contained a list of bots from 
+    with open("RedditBotNames.txt") as file: #contained a list of bots from https://www.reddit.com/r/botwatch/comments/1wg6f6/bot_list_i_built_a_bot_to_find_other_bots_so_far/cf1nu8p/ 
         for line in file:
             name = line.split()[0][3:]
             if check_if_user_exists(name):
