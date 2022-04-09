@@ -75,33 +75,35 @@ def PostingInterval(user, NumberOfPostsAnalysed):
             days_interval.append(current_interval)
             time_interval.append(TimeDifference(previous_date, post.created_utc,0))
             previous_date = post.created_utc
-    
+            
+    weight = 0
     if postsAnalysed_count>0 :
-        #calculate variance for days_interval
-        mean_days_interval = sum(days_interval)/ len(days_interval)
-        days_variance = 0
-        for i in range(0, len(days_interval)):
-            days_variance += (days_interval[i]-mean_days_interval)**2
-        days_variance /= (len(days_interval)-1)
-        #print(days_interval)
-        #print(days_variance)
+        if len(days_interval)>1:
+            #calculate variance for days_interval
+            mean_days_interval = sum(days_interval)/ len(days_interval)
+            days_variance = 0
+            for i in range(0, len(days_interval)):
+                days_variance += (days_interval[i]-mean_days_interval)**2
+            days_variance /= (len(days_interval)-1)
+            #print(days_interval)
+            #print(days_variance)
+            if(math.sqrt(days_variance)<3): #posts at most every 3 days
+                weight+= math.sqrt(days_variance)*2
         
-        #calculate variance for time_interval
-        mean_time_interval = sum(time_interval)/ len(time_interval)
-        time_variance=0;
-        for i in range(0,len(time_interval)):
-            time_variance += (time_interval[i]-mean_time_interval)**2
-        time_variance /= (len(time_interval)-1)
-        #print(time_interval)
-        #print(time_variance)
+        if len(time_interval)>1:
+            #calculate variance for time_interval
+            mean_time_interval = sum(time_interval)/ len(time_interval)
+            time_variance=0;
+            for i in range(0,len(time_interval)):
+                time_variance += (time_interval[i]-mean_time_interval)**2
+            time_variance /= (len(time_interval)-1)
+            #print(time_interval)
+            #print(time_variance)
         
-        weight = 0 
-        if(math.sqrt(time_variance)< 100) : #posts around the same time 
-            weight+=math.sqrt(time_variance)*3
-        if(math.sqrt(days_variance)<3): #posts at most every 3 days
-            weight+= math.sqrt(days_variance)*2
-        return weight #if weight=0, program cannot identify redditor's posting pattern
-    return 0
+            if(math.sqrt(time_variance)< 100) : #posts around the same time 
+                weight+=math.sqrt(time_variance)*3
+
+    return weight
 
 def CommentInterval(user, NumberOfPostsAnalysed):
     # analyse time interval between each comment
@@ -119,27 +121,29 @@ def CommentInterval(user, NumberOfPostsAnalysed):
             time_interval.append(TimeDifference(previous_date, comment.created_utc,0))
             previous_date = comment.created_utc
     
-    #calculate variance for days_interval
-    mean_days_interval = sum(days_interval)/ len(days_interval)
-    days_variance = 0
-    for i in range(0, len(days_interval)):
-        days_variance += (days_interval[i]-mean_days_interval)**2
-    days_variance /= (len(days_interval)-1)
-    
-    #calculate variance for time_interval
-    mean_time_interval = sum(time_interval)/ len(time_interval)
-    time_variance=0;
-    for i in range(0,len(time_interval)):
-        time_variance += (time_interval[i]-mean_time_interval)**2
-    time_variance /= (len(time_interval)-1)
-    #print(time_interval)
-    #print(time_variance)
-    
     weight = 0 
-    if(math.sqrt(time_variance)< 100) : #posts around the same time 
-        weight+=math.sqrt(time_variance)*3
-    if(math.sqrt(days_variance)<3): #posts at most every 3 days
-        weight+= math.sqrt(days_variance)*2
+    #calculate variance for days_interval
+    if len(days_interval) > 1 :
+        mean_days_interval = sum(days_interval)/ len(days_interval)
+        days_variance = 0
+        for i in range(0, len(days_interval)):
+            days_variance += (days_interval[i]-mean_days_interval)**2
+        days_variance /= (len(days_interval)-1)
+        if(math.sqrt(days_variance)<3): #posts at most every 3 days
+            weight+= math.sqrt(days_variance)*2
+            
+    #calculate variance for time_interval
+    if len(time_interval) > 1 :
+        mean_time_interval = sum(time_interval)/ len(time_interval)
+        time_variance=0;
+        for i in range(0,len(time_interval)):
+            time_variance += (time_interval[i]-mean_time_interval)**2
+        time_variance /= (len(time_interval)-1)
+        #print(time_interval)
+        #print(time_variance)
+        if(math.sqrt(time_variance)< 100) : #posts around the same time 
+            weight+=math.sqrt(time_variance)*3
+    
     return weight #if weight=0, program cannot identify redditor's posting pattern
 
 def AnalyseComments(user, NumberOfPostsAnalysed):
@@ -152,7 +156,7 @@ def AnalyseComments(user, NumberOfPostsAnalysed):
     if(CommentsAnalysed_count>0):
         return 100*(CommentsAnalysed_count- len(UniqueComments))/CommentsAnalysed_count 
     return 0
-def CalculateTotalWeight(user, PostLimit):
+def BotScore(user, PostLimit):
     totalscore = 0
     totalscore += AnalyseAccount(user) 
     
@@ -161,44 +165,42 @@ def CalculateTotalWeight(user, PostLimit):
     
     totalscore += AnalyseComments(user, PostLimit)
     totalscore += CommentInterval(user, PostLimit)
-
+    return totalscore
     #print(totalscore)
     if(totalscore<100):
         return False # not a bot
     return True
 
 def main():
-    Test_Users={'MarsFromSaturn':False,
-                'carbonatedcoochie2':False,
-                'swifthunder105':False,
-                'SpanglyEagle':False,
-                'Zombie_desu_':False,
-                'dilli_ka-londa':False,
-                'The_Dark_Ferret':False,
-                
-                
-                'snoocockbot':True,
-                'Most-Boring-Bot':True,
-                'AutoModerator':True,
-                'ADHDbot':True,
-                'Antiracism_Bot':True,
-                'AutoInsult':True,
-                'BlackjackBot':True,
-                
-                }
-    PostLimit = 20 # upperbound for number of posts to be analysed 
-    FalsePositive  = 0
-    FalseNegative = 0
-    for user in Test_Users:
-        res = CalculateTotalWeight(reddit.redditor(user),PostLimit)
-        if res == False and Test_Users[user] == True:
-            FalseNegative+=1
-        if res == True and Test_Users[user] == False:
-            FalsePositive+=1
-        
     
-    print(100*FalsePositive/len(Test_Users))
-    print(100*FalseNegative/len(Test_Users))
+    PostLimit = 20 # upperbound for number of posts to be analysed for each account
+
+    MeanBotScore = 0
+    MinimumBotScore = 999999999999
+    i=0
+    with open("CleanRedditBot.txt") as file:
+        for user in file:
+            currentScore = BotScore(reddit.redditor(user),PostLimit)
+            MinimumBotScore = min(MinimumBotScore, currentScore)
+            MeanBotScore += currentScore
+            i+=1
+    file.close()
+    
+    print(MinimumBotScore, MeanBotScore/i, i)
+
+    MeanHumanScore = 0
+    MaximumHumanScore = 0
+    i=0
+    with open("CleanRedditor.txt") as file:
+        for user in file:
+            currentScore = BotScore(reddit.redditor(user),PostLimit)
+            MaximumHumanScore = max(MaximumHumanScore, currentScore)
+            MeanHumanScore += currentScore
+            i+=1
+    file.close()
+    
+    print(MaximumHumanScore, MeanHumanScore/i, i)
+
 
 
 main()
