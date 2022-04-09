@@ -2,7 +2,7 @@
 
 Source : https://www.reddit.com/r/botwatch/comments/1wg6f6/bot_list_i_built_a_bot_to_find_other_bots_so_far/cf1nu8p/ 
 
-None of the following bots are banned.
+None of the following reddit accounts are banned.
 
 Nazeem_Bot
 PhoenixBot
