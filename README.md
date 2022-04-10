@@ -1,22 +1,26 @@
 # Basic spam bot detection algorithm
-An algorithm that identifies bots (mainly spam bots) with 70 %  * accuracy.
+An algorithm that identifies bots (mainly spam bots) with 40 % accuracy. (678 different Reddit accounts were used for testing. At most 100 submissions (posts+comments) were analysed for each account.)
+
 This code was written for fun to experiment with Python.
 
-\* 678 different Reddit accounts were used for testing. At most 100 submissions (posts+comments) were analysed for each account. 
 
 # How to use #
 
-Fill in the required details for the Reddit instance
+1. All the code required is in `main.py`
 
-Call function
+1. Fill in the required details for the Reddit instance
+
+1. Call function
 
 ```python
 print(FinalReport('Most-Boring-Bot', k)) 
 # k : number of posts to be analysed. 0 < k < 1000
 ```
-The function returns 1 if the user `u/Most-Boring-Bot` is a spam bot.
+The function returns 1 if the user `u/Most-Boring-Bot` is a spam bot. Algorithm works best when the user has more than 20 posts and more than 20 comments and when k > 30 
 
-Algorithm works best when the user has more than 20 posts and more than 20 comments and when k > 30 
+
+`data.txt` contains a list of Reddit usernames of bots and real people. 
+
 # Heuristics #
 Heuristics 
 --- | 
@@ -25,6 +29,8 @@ Verified account
 Reddit employee 
 Variance in time interval between posts/comments 
 Variance between posts'/comments' content 
+
+# Heuristics explanation # 
 # Current limitations #
 - Algorithm cannot differentiate between a bot and a spam bot.
 # Future work #
