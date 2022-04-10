@@ -26,7 +26,7 @@ Reddit employee
 Variance in time interval between posts/comments 
 Variance between posts'/comments' content 
 # Current limitations #
-- Algorithm cannot not differentiate between a bot and a spam bot.
+- Algorithm cannot differentiate between a bot and a spam bot.
 # Future work #
 ### Heuristics improvements ###
 - [ ] Check for URL shorteners and whether comments link to the same sites 
