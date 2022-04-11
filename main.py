@@ -6,6 +6,11 @@ from datetime import date
 import math
 
 reddit = praw.Reddit(
+    client_id="",
+    client_secret="",
+    user_agent="",
+    username = "",
+    password = ""
 )
 
 def AnalyseAccount(user) :
@@ -156,23 +161,23 @@ def AnalyseComments(user, NumberOfPostsAnalysed):
     if(CommentsAnalysed_count>0):
         return 100*(CommentsAnalysed_count- len(UniqueComments))/CommentsAnalysed_count 
     return 0
-def BotScore(user, PostLimit):
+def BotScore(username, PostLimit):
+    user= reddit.redditor(username)
     totalscore = 0
-    
     totalscore += AnalyseAccount(user) 
     totalscore += AnalysePosts(user,PostLimit)
     totalscore += PostingInterval(user, PostLimit)
     totalscore += AnalyseComments(user, PostLimit)
     totalscore += CommentInterval(user, PostLimit)
     #return totalscore
-    #print(totalscore)
+    print(totalscore)
     if(totalscore<85):
         return False # not a bot
     return True
 
-def main():
+def FindThresholdOfBotScore():
     
-    PostLimit = 30 # upperbound for number of posts to be analysed for each account
+    PostLimit = 5 # upperbound for number of posts to be analysed for each account
     AccountLimit = 10 # upperbound for number of accounts to be analysed
     
     AllBotScores = []
@@ -204,9 +209,9 @@ def main():
     print(AllHumanScores[0],AllHumanScores[int(len(AllHumanScores)/2)], sum(AllHumanScores)/len(AllHumanScores), AllHumanScores[len(AllHumanScores)-1])
 
 
-def testCorrectness():
-    PostLimit = 50 # upperbound for number of posts to be analysed for each account
-    AccountLimit = 400 # upperbound for number of accounts to be analysed
+def EvaluateAlgorithm():
+    PostLimit = 60 # upperbound for number of posts to be analysed for each account
+    AccountLimit = 900# upperbound for number of accounts to be analysed
     
     i=0
     correct=0
@@ -218,7 +223,7 @@ def testCorrectness():
                 correct+=1
             i+=1
     file.close()
-    print(correct/i)
+    print(100*correct/i)
     
     j=0
     with open("CleanRedditor.txt") as file:
@@ -231,13 +236,4 @@ def testCorrectness():
     file.close()
     print((100*correct)/(i+j))
 
-testCorrectness()
-#main()
-#print(CommentInterval(5))
-#print(AnalysePostsSimilarity(100))
-#print(user.created_utc)
-
-#print(AnalyseAccountAge())
-#print(AnalyseComments(10))
-
-    #print(help(user))
+print(BotScore('Most-Boring-Bot', 50))
