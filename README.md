@@ -39,13 +39,11 @@ Variance in time interval between posts/comments
 Variance between posts'/comments' content 
 
 # Future work #
+### Sample data improvements ###
+- [ ] Remove accounts with less than 100 comments and 100 posts 
+- [ ] Remove non-spam bots from list of bots. (The algorithm assumed that the list of bots has spam bots only so the presence of non-spam bots significantly reduced its accuracy)
 ### Heuristics improvements ###
 - [ ] Check for URL shorteners and whether comments link to the same sites 
 - [ ] Check if same links appear in several comments
 - [ ] Use better statistical methods to find threshold human/bot
-- [ ] Increase number of posts analysed per account
 - [ ] Improve algorithm for checking similarity between posts/comments (check word frequency, grammatical mistakes, ...)
-
-### Sample data improvements ###
-- [ ] Remove accounts with less than 100 comments and 100 posts
-- [ ] Remove non-spam bots from list of bots 
