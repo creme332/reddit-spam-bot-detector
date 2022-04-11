@@ -1,5 +1,5 @@
 # Basic spam bot detection algorithm
-An algorithm that identifies bots (mainly spam bots) with 40 % accuracy. (678 different Reddit accounts were used for testing. At most 100 submissions (posts+comments) were analysed for each account.)
+An algorithm that identifies spam bots with 40 % accuracy. (678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account.)
 
 This code was written for fun to experiment with Python.
 
