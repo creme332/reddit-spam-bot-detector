@@ -6,11 +6,11 @@ This code was written for fun to experiment with Python.
 
 # How to use #
 
-1. All the code required is in `main.py`
+1. All the code required is in `main.py`.
 
-1. Fill in the required details for the Reddit instance
+1. Fill the required details for the Reddit instance.
 
-1. Call function as shown below :
+1. Call function `BotScore` as shown below :
 
 ```python
 print(BotScore('Most-Boring-Bot', k)) 
@@ -21,11 +21,11 @@ Output :
 115.44958793954774
 True
 ```
-The first number is the indicates the likelihood of the account being a spam bot. (the higher the number the more likely)
+The first number is indicates the likelihood of being a spam bot. (the higher the number the more likely)
 
 The function returns True if the user `u/Most-Boring-Bot` is a spam bot.
 
-Algorithm works best when the user has more than 20 posts and more than 20 comments and when k > 30 
+Algorithm works best when the user has more than 20 posts/comments and when k > 30 
 
 `data.txt` contains a list of Reddit usernames of bots and real people which have been used for testing.
 
