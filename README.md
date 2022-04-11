@@ -10,16 +10,24 @@ This code was written for fun to experiment with Python.
 
 1. Fill in the required details for the Reddit instance
 
-1. Call function
+1. Call function as shown below :
 
 ```python
-print(FinalReport('Most-Boring-Bot', k)) 
+print(BotScore('Most-Boring-Bot', k)) 
 # k : number of posts to be analysed. 0 < k < 1000
 ```
-The function returns 1 if the user `u/Most-Boring-Bot` is a spam bot. Algorithm works best when the user has more than 20 posts and more than 20 comments and when k > 30 
+Output :
+```
+115.44958793954774
+True
+```
+The first number is the indicates the likelihood of the account being a spam bot. (the higher the number the more likely)
 
+The function returns True if the user `u/Most-Boring-Bot` is a spam bot.
 
-`data.txt` contains a list of Reddit usernames of bots and real people. 
+Algorithm works best when the user has more than 20 posts and more than 20 comments and when k > 30 
+
+`data.txt` contains a list of Reddit usernames of bots and real people which have been used for testing.
 
 # Heuristics #
 Heuristics 
@@ -30,9 +38,6 @@ Reddit employee
 Variance in time interval between posts/comments 
 Variance between posts'/comments' content 
 
-# Heuristics explanation # 
-# Current limitations #
-- Algorithm cannot differentiate between a bot and a spam bot.
 # Future work #
 ### Heuristics improvements ###
 - [ ] Check for URL shorteners and whether comments link to the same sites 
@@ -43,4 +48,4 @@ Variance between posts'/comments' content
 
 ### Sample data improvements ###
 - [ ] Remove accounts with less than 100 comments and 100 posts
-- [ ] Remove non-spam bots from list of bots (eg Wikibot)
+- [ ] Remove non-spam bots from list of bots 
