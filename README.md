@@ -1,10 +1,11 @@
-# Basic spam bot detection algorithm
-An algorithm that identifies spam bots with 40 % accuracy. (678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account.)
+# 🤖Basic spam bot detection algorithm
+An algorithm that identifies spam bots with 40 %* accuracy. 
 
-This code was written for fun to experiment with PRAW.
-
-
-# How to use #
+This code was written for fun to experiment with PRAW. 
+>*⚠️
+>
+> 678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account. The algorithm assumed that the list of bots contains spam bots only so the presence of non-spam bots significantly reduced its accuracy.
+# 🚀Setup #
 
 1. All the code required is in `main.py`.
 
@@ -29,7 +30,7 @@ Algorithm works best when the user has more than 20 posts/comments and when k > 
 
 `data.txt` contains a list of Reddit usernames of bots and real people which have been used for testing.
 
-# Heuristics #
+# 🛰️Heuristics #
 Heuristics 
 --- | 
 Account age and karma
@@ -38,10 +39,10 @@ Reddit employee
 Variance in time interval between posts/comments 
 Variance between posts'/comments' content 
 
-# Future work #
+# 🔮Future work #
 ### Sample data improvements ###
 - [ ] Remove accounts with less than 100 comments and 100 posts 
-- [ ] Remove non-spam bots from list of bots. (The algorithm assumed that the list of bots has spam bots only so the presence of non-spam bots significantly reduced its accuracy)
+- [ ] Remove non-spam bots from list of bots. 
 ### Heuristics improvements ###
 - [ ] Check for URL shorteners and whether comments link to the same sites 
 - [ ] Check if same links appear in several comments
