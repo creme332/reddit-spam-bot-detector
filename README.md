@@ -1,16 +1,25 @@
 # 🤖Basic spam bot detection algorithm
-An algorithm that identifies spam bots with 40 %* accuracy. 
+An algorithm that identifies spam bots with 40-50 %* accuracy. 
 
-This code was written for fun to experiment with PRAW. 
->*⚠️
+>⚠️ Disclaimer
 >
-> 678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account. The algorithm assumed that the list of bots contains spam bots only so the presence of non-spam bots significantly reduced its accuracy.
+> 678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account. Finding a list of active spam bots is nearly impossible because Reddit bans most spam bots automatically. My algorithm assumed that the list of bots contains spam bots only so the presence of non-spam bots significantly reduced its accuracy. 
+
+This code was written for fun to experiment with PRAW and must not be taken seriously. 
 # 🚀Setup #
 
 1. All the code required is in `main.py`.
 
 1. Fill the required details for the Reddit instance.
-
+```python
+reddit = praw.Reddit(
+    client_id="xxxxxxxxx",
+    client_secret="xxxxxxxxx",
+    user_agent="xxxxxxxxx",
+    username = "xxxxxxxxx",
+    password = "xxxxxxxxx"
+)
+```
 1. Call function `BotScore` as shown below :
 
 ```python
