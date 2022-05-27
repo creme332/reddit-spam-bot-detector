@@ -1,7 +1,7 @@
 # 🤖Basic spam bot detection algorithm
 An algorithm that identifies spam bots with 40-50 %* accuracy. 
 
->⚠️ Disclaimer
+>⚠️ $Disclaimer$
 >
 > 678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing. At most 100 submissions (posts+comments) were analysed for each account. Finding a list of active spam bots is nearly impossible because Reddit bans most spam bots automatically. My algorithm assumed that the list of bots contains spam bots only so the presence of non-spam bots significantly reduced its accuracy. 
 
@@ -35,7 +35,7 @@ The first number is indicates the likelihood of being a spam bot. (the higher th
 
 The function returns True if the user `u/Most-Boring-Bot` is a spam bot.
 
-Algorithm works best when the user has more than 20 posts/comments and when k > 30 
+Algorithm works best when the user has more than 20 posts/comments and when $k > 30$
 
 `data.txt` contains a list of Reddit usernames of bots and real people which have been used for testing.
 
