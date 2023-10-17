@@ -1,5 +1,5 @@
-# 🤖 Reddit bot detector
-A simple algorithm that identifies spam bot accounts on Reddit.
+# 🤖 Reddit Bot Detector
+A simple algorithm that uses Reddit's API to identify spam bot accounts.
 
 Different weights are assigned to accounts based on the following heuristics:
 Heuristics | Meaning
@@ -13,9 +13,9 @@ Variance between posts'/comments' content |  Accounts posting a lot of identical
 
 678 different Reddit accounts (bots accounts and non-bots accounts) were used for testing and at most 100 submissions (posts + comments) were analysed for each account. 
 
-> ⚠ This program was written to experiment with Reddit's API and Python and is not meant to be taken seriously. 
+> 🔴 **Disclaimer: This program is purely for educational and experimental purposes. It was created to explore the functionalities of Reddit's API and to learn Python programming. It is not designed, tested, or intended for use in any production environment. The author does not assume any responsibility for the program's usage outside of the intended educational context. Users should use the program at their own risk and discretion.**
  
-# Usage #
+## Usage
 - `data.txt` contains a list of Reddit usernames of bots and real people which have been used for testing.
 - All the code required is in `main.py`.
 
@@ -46,12 +46,12 @@ The function returns `True` if the user `u/Most-Boring-Bot` is a spam bot.
 
 Algorithm works best when the user has more than 20 posts and comments and when $k > 30$.
 
-# Limitation
+## Limitation
 - Finding a list of active spam bots is nearly impossible because Reddit bans spam bots automatically. The threshold used for identifying bots is somewhat flawed because my algorithm assumed that my list of bots contains only spam bots. However not all bot accounts are spam bots.
 
 - The accuracy of the program is hard to calculate as well due to lack of data.
 
-# Future work 
+## Future work 
 ### Sample data improvements
 - [ ] Remove accounts with less than 100 comments and 100 posts 
 - [ ] Remove non-spam bots from list of bots. 
